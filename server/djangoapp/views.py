@@ -93,7 +93,7 @@ def registration_request(request):
 #        return render(request, 'djangoapp/index.html', context)
 def get_dealerships(request):
     if request.method == "GET":
-        url = "https://fcb84ca8-0a81-40be-8152-46b45460befa-bluemix.cloudantnosqldb.appdomain.cloud"
+        url = "https://lmeanylg-3000.theiadocker-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
         # Get dealers from the URL
         dealerships = get_dealers_from_cf(url)
         # Concat all dealer's short name
