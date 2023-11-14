@@ -37,7 +37,7 @@
                         <input type="password" class="form-control" placeholder="Password" name="password">
                         <button class="btn btn-primary" type="submit" >Login</button>
                         <a class="btn btn-link" href="{% url 'djangoapp:registration' %} ">Sign up</a>
-                        <a class="navbar-brand" href="#">About us</a>
+                        <a class="navbar-brand" href="{% url 'djangoapp:about' %} ">About us</a>
                         </div>
                     </form>
                 </li>
@@ -45,12 +45,52 @@
             </ul>
         </div>
     </nav>
-    <footer>
-        <a class="navbar-brand" href="#">Contact us</a>
-    </footer>
-
-    <!--Add a dealer table here -->
-
+    <div class="container-fluid">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-warning" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    
+        <table class="table" id="table"
+            data-filter-control="true">
+            <thead>
+                <tr>
+                    <th data-field="id">ID</th>
+                    <th data-field="full_name">Dealer Name</th>
+                    <th data-field="city">City</th>
+                    <th data-field="address">Address</th>
+                    <th data-field="zip">Zip</th>
+                    <th data-field="state" data-filter-control="select">State</th>
+                </tr>
+            </thead>
+             <tbody>
+                {% for dealer in dealership_list %}
+                    <tr>
+                        <td>{{dealer.id}}</td>
+                        <td><a href="{% url 'djangoapp:dealer_details' dealer.id %}">{{dealer.full_name}}</a></td>   
+                        <td>{{dealer.city}}</td>
+                        <td>{{dealer.address}}</td>
+                        <td>{{dealer.zip}}</td>
+                        <td>{{dealer.st}}</td>
+                    </tr>
+                {% endfor %}
+             </tbody>
+        </table>
+        </div>
+        <footer class="fixed-bottom">
+              <div class="container-fluid">
+                <a href="{% url 'djangoapp:contact' %}">Contact Us</a>
+              </div>
+        </footer>
+    </div>
     </body>
-
+    
+    
+    <script>
+      $(function() {
+        $('#table').bootstrapTable()
+      })
+    </script>
+    
 </html>
