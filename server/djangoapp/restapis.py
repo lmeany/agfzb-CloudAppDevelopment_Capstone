@@ -1,7 +1,7 @@
 import requests
 import json
 # import related models here
-from .models import CarDealer
+from .models import CarDealer, DealerReview
 from requests.auth import HTTPBasicAuth
 from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
@@ -137,8 +137,8 @@ def get_dealers_reviews_from_cf(url, id, **kwargs):
 def analyze_review_sentiments(dealer_review):
 # - Call get_request() with specified arguments
 # - Get the returned sentiment label such as Positive or Negative
-    apikey = ""
-    url = ""
+    apikey = 'UzDmjIBquw_tVIll1ZCUKShB83FsbT9s0A-P_kGeBV1G'
+    url = 'https://api.us-south.natural-language-understanding.watson.cloud.ibm.com/instances/0ceb5f31-171b-4349-a43a-e2d614cf7c12'
     
     authenticator = IAMAuthenticator(apikey)
     natural_language_understanding = NaturalLanguageUnderstandingV1(
