@@ -156,8 +156,18 @@ def add_review(request, id):
             payload["car_model"] = car.name
             payload["car_year"] = int(car.year.strftime("%Y"))
 
-            new_payload = {}
-            new_payload["review"] = payload
+            review = {
+                "id":id,
+                "time":datetime.utcnow().isoformat(),
+                "name":request.user.username,  # Assuming you want to use the authenticated user's name
+                "dealership" :id,                
+                "review": request.POST["content"],  # Extract the review from the POST request
+                "purchase": True,  # Extract purchase info from POST
+                "purchase_date":request.POST["purchasedate"],  # Extract purchase date from POST
+                "car_make": car.make.name,  # Extract car make from POST
+                "car_model": car.name,  # Extract car model from POST
+                "car_year": int(car.year.strftime("%Y")),  # Extract car year from POST
+            }
             review_post_url = "https://lmeanylg-5000.theiadocker-3-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/post_review"
-            post_request(review_post_url, new_payload, id=id)
+            post_request(review_post_url, review, id=id)
         return redirect("djangoapp:dealer_details", id=id)
